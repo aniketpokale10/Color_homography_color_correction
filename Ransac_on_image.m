@@ -30,31 +30,8 @@ if isempty(H)
     error('Empty homography matrix, please try again');
 end
 
-% Calculating luv error
-luv_est = xyz2luv(P*H,whitepoint);
-luv_ref = xyz2luv(Q,whitepoint);
-
-% d = sqrt(sum((luv_est - luv_ref).^2,1));
-% d = d/length(P) ;
-% d = sum(d)/3;
-% fprintf('Luv Error: %f\n',d);
-
-mean_error = 0; % Calculate the mean error
-deltaE = 0;
-error_vector = [];
-for i=1:length(P)
-    deltaEtemp = 0;
-    for k=1:3
-        mean_error = mean_error + abs(luv_ref(i,k) - luv_est(i,k))./(3*length(P));
-        deltaEtemp = deltaEtemp + (luv_ref(i,k) - luv_est(i,k)).^2;
-        error_vector = [error_vector; abs(luv_ref(i,k) - luv_est(i,k))];
-    end
-    deltaE = deltaE + sqrt(deltaEtemp);
-end
-deltaE = deltaE/(3*length(P));
-fprintf('Mean Luv Error: %f\n',mean_error);
-fprintf('Median Luv Error: %f\n',median(error_vector));
-fprintf('delta E Luv Error: %f\n',deltaE);
+% calculate color difference errors
+CCerrors(P*H, Q);
 
 O = uint8(P*H); 
 count = 1;
