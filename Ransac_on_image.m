@@ -31,9 +31,9 @@ if isempty(H)
 end
 
 % Calculating luv error
-% luv_est = xyz2luv(P*H,whitepoint);
-% luv_ref = xyz2luv(Q,whitepoint);
-% 
+luv_est = xyz2luv(P*H,whitepoint);
+luv_ref = xyz2luv(Q,whitepoint);
+
 % d = sqrt(sum((luv_est - luv_ref).^2,1));
 % d = d/length(P) ;
 % d = sum(d)/3;
@@ -51,7 +51,7 @@ for i=1:length(P)
     end
     deltaE = deltaE + sqrt(deltaEtemp);
 end
-deltaE = deltaE/length(P);
+deltaE = deltaE/(3*length(P));
 fprintf('Mean Luv Error: %f\n',mean_error);
 fprintf('Median Luv Error: %f\n',median(error_vector));
 fprintf('delta E Luv Error: %f\n',deltaE);
