@@ -33,11 +33,12 @@ for k=1:50
         end
     end
 
-%     for i=1:iterations % Alternating least squares algorithm
-        M = pinv(D*P)*Q;
-        P = P*M;        % The corrected RGB values are stored in P
-%     end
+    M = pinv(D*P)*Q;
+    P = P*M;        % The corrected RGB values are stored in P
+
 end
+
+CCerrors(P*M,Q);
 
 P = uint8(P);
 count = 1;
@@ -56,20 +57,6 @@ imshow(input); title('Intput image');
 subplot(2,2,2);
 imshow(uint8(output)); title('Corrected image');
 
-% output = rgb2lab(output);
-% original = rgb2lab(original);
 
-mean_error = 0; % Calculate the mean error
-error_vector = [];
-for i=1:size(output,1)
-    for j=1:size(output,2)
-        for k=1:3
-            mean_error = mean_error + abs(original(i,j,k) - output(i,j,k))./(3*n);
-            error_vector = [error_vector; abs(original(i,j,k) - output(i,j,k))];
-        end
-    end
-end
-fprintf('Mean error = %f\n', mean_error);
-fprintf('Median error = %f\n', median(error_vector));
 
 
