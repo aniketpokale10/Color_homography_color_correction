@@ -1,8 +1,8 @@
 % This code implements the Alternating least squares algorithm for color
 % homography color correction.
 
-input = imread('macbeth_input1.jpg'); % input image is the image to be corrected
-original = imread('macbeth_original.jpg'); %%original image is how the corrected image should be 
+input = imread('Input_data/macbeth_input1.jpg'); % input image is the image to be corrected
+original = imread('Input_data/macbeth_original.jpg'); %%original image is how the corrected image should be 
 original = rgb2xyz(original); % We take XYZ color space as reference for mapping
 iterations = 50; % The alternating least squares algorithm converges in about 15 iterations 
 

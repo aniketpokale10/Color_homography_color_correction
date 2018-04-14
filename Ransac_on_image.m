@@ -1,5 +1,5 @@
-input = imread('macbeth_input1.jpg'); % input image is the image to be corrected
-original = imread('macbeth_original.jpg'); %%original image is how the corrected image should be 
+input = imread('Input_data/macbeth_input1.jpg'); % input image is the image to be corrected
+original = imread('Input_data/macbeth_original.jpg'); %%original image is how the corrected image should be 
 
 input = double(input); original = double(original);
 
