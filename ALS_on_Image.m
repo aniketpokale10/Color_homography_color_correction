@@ -16,6 +16,7 @@ end
 
 B = double(B);
 P = double(P);
+P_init = P;
 n = length(P);
 
 % ALS algorithm
@@ -27,8 +28,8 @@ for k=1:50
         end
     end
 
-    M = pinv(D*P)*Q;
-    P = P*M;        % The corrected RGB values are stored in P
+    M = pinv(D*P_init)*Q;
+    P = P_init*M;        % The corrected RGB values are stored in P
 
 end
 
