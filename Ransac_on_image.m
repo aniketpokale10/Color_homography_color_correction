@@ -31,7 +31,8 @@ if isempty(H)
 end
 
 % calculate color difference errors
-CCerrors(P*H, Q);
+P_x = rgb2xyz(P*H);
+CCerrors(P_x, Q);
 
 O = uint8(P*H); 
 count = 1;
