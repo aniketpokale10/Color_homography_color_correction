@@ -4,7 +4,7 @@
 input = imread('macbeth_input1.jpg'); % input image is the image to be corrected
 original = imread('macbeth_original.jpg'); %%original image is how the corrected image should be 
 original = rgb2xyz(original); % We take XYZ color space as reference for mapping
-iterations = 15; % The alternating least squares algorithm converges in about 15 iterations 
+iterations = 50; % The alternating least squares algorithm converges in about 15 iterations 
 
 P = []; Q = []; B = []; % convert images to array of n * 3
 for i=1:size(input,1)
@@ -18,8 +18,9 @@ B = double(B);
 P = double(P);
 n = length(P);
 
-D = zeros(n);
-for k=1:15
+% ALS algorithm
+D = speye(n);
+for k=1:50
     for j=1:n
         if (norm(P(j,:))^2) ~= 0
             D(j,j) = (P(j,:)*Q(j,:)')/(norm(P(j,:))^2); % calculating matrix of shading factors
@@ -31,11 +32,12 @@ for k=1:15
 
 end
 
-CCerrors(P,Q);
+P_x = rgb2xyz(P);
+CCerrors(P_x,Q); % output the colr difference errors
 
 P = uint8(P);
 count = 1;
-output = zeros(size(input));
+output = zeros(size(input)); % output image for visualization
 for i=1:size(input,1)
     for j=1:size(input,2)
         output(i,j,:) = P(count,:); % converting P back to an image for visualization
