@@ -8,18 +8,17 @@ uv_ref = bsxfun(@rdivide,luv_ref(:,2:3),max(luv_ref(:,1),eps));
 uv_est = bsxfun(@rdivide,luv_est(:,2:3),max(luv_est(:,1),eps));
 
 fprintf('Luv errors = \n');
+deltaE = sqrt(sum((uv_est-uv_ref).^2, 2));
 
-mean_error = mean(mean(abs(uv_ref - uv_est)));
-median_error = median(sum(abs(uv_ref - uv_est),2)./2);
-max_error = max(sum(abs(uv_ref - uv_est),2)./2);
-deltaE = sum(sqrt(sum((uv_est-uv_ref).^2, 2)))/length(uv_est);
-quantile95 = max(quantile(uv_ref - uv_est, 0.95));
+mean_error = mean(deltaE);
+median_error = median(deltaE);
+max_error = max(deltaE);
+quantile95 = max(quantile(deltaE, 0.95));
 
 fprintf('Mean Error: %f\n',mean_error);
 fprintf('Median Error: %f\n',median_error);
-fprintf('Max Error: %f\n',max_error);
-fprintf('delta E Error: %f\n',deltaE);
-fprintf('95 percernt quantile Error: %f\n\n',quantile95);
+fprintf('95 percernt quantile Error: %f\n',quantile95);
+fprintf('Max Error: %f\n\n',max_error);
 
 
 % Calculating Lab error
@@ -30,16 +29,15 @@ ab_ref = bsxfun(@rdivide,lab_ref(:,2:3),max(lab_ref(:,1),eps));
 ab_est = bsxfun(@rdivide,lab_est(:,2:3),max(lab_est(:,1),eps));
 
 fprintf('lab errors = \n');
+deltaE = sqrt(sum((ab_est-ab_ref).^2, 2));
 
-mean_error = mean(mean(abs(ab_ref - ab_est)));
-median_error = median(sum(abs(ab_ref - ab_est),2)./2);
-max_error = max(sum(abs(ab_ref - ab_est),2)./2);
-deltaE = sum(sqrt(sum((ab_est-ab_ref).^2, 2)))/length(ab_est);
-quantile95 = max(quantile(ab_ref - ab_est, 0.95));
+mean_error = mean(deltaE);
+median_error = median(deltaE);
+max_error = max(deltaE);
+quantile95 = max(quantile(deltaE, 0.95));
 
 fprintf('Mean Error: %f\n',mean_error);
 fprintf('Median Error: %f\n',median_error);
-fprintf('Max Error: %f\n',max_error);
-fprintf('delta E Error: %f\n',deltaE);
 fprintf('95 percernt quantile Error: %f\n',quantile95);
+fprintf('Max Error: %f\n\n',max_error);
 
